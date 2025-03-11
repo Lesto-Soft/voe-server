@@ -8,7 +8,13 @@ import { resolvers } from "./graphql/resolvers.js";
 
 dotenv.config();
 
-// Function to start Apollo Server and set up the Express app
+/**
+ * Creates and configures an Express application with Apollo GraphQL.
+ *
+ * @async
+ * @function createApp
+ * @returns {Promise<express.Express>} A configured Express application.
+ */
 export async function createApp() {
   // Read the schema file asynchronously
   const typeDefs = await readFile("app/graphql/schema.graphql", "utf8");
