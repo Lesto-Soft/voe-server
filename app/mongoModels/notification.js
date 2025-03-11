@@ -3,6 +3,7 @@ import { Schema, model } from "mongoose";
 const notificationSchema = new Schema({
   date: {
     type: String,
+    require: true,
   },
   description: {
     type: String,
@@ -10,16 +11,16 @@ const notificationSchema = new Schema({
   read: {
     type: Boolean,
   },
-  caseId: {
+  case: {
     type: Schema.Types.ObjectId,
     ref: "Case",
   },
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  answerId: {
+  answer: {
     type: Schema.Types.ObjectId,
     ref: "Answer",
   },

@@ -1,43 +1,43 @@
 import { Schema, model } from "mongoose";
 
 const caseHistory = new Schema({
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  originalDate: {
+  initial_date: {
     type: String,
   },
-  dateOfChange: {
+  date_change: {
     type: String,
   },
-  oldDescription: {
+  old_content: {
     type: String,
   },
-  newDescription: {
+  new_content: {
     type: String,
   },
-  oldPriority: {
+  old_priority: {
     type: Number,
   },
-  newPriority: {
+  new_priority: {
     type: Number,
   },
-  oldType: {
+  old_type: {
     type: Number,
   },
-  newType: {
+  new_type: {
     type: Number,
   },
-  oldCategoryId: [
+  old_categories: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
       require: true,
     },
   ],
-  newCategoryId: [
+  new_categories: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",

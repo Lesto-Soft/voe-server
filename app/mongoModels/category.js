@@ -5,19 +5,19 @@ const categorySchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  descriptionProblem: {
+  problem: {
     type: String,
   },
-  descriptionSuggestion: {
+  suggestion: {
     type: String,
   },
-  expertUserIds: [
+  experts: [
     {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
   ],
-  caseIds: [
+  cases: [
     {
       type: Schema.Types.ObjectId,
       ref: "Case",

@@ -3,8 +3,9 @@ import { Schema, model } from "mongoose";
 const answerSchema = new Schema({
   date: {
     type: String,
+    require: true,
   },
-  description: {
+  content: {
     type: String,
   },
   attachments: [
@@ -12,17 +13,17 @@ const answerSchema = new Schema({
       type: String,
     },
   ],
-  caseId: {
+  case: {
     type: Schema.Types.ObjectId,
     ref: "Case",
     require: true,
   },
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  commentId: [
+  comments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",

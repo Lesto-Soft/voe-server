@@ -12,9 +12,6 @@ const caseSchema = new Schema({
   date: {
     type: String,
   },
-  signature: {
-    type: String,
-  },
   attachments: [
     {
       type: String,
@@ -22,33 +19,35 @@ const caseSchema = new Schema({
   ],
   priority: {
     type: Number,
+    require: true,
   },
   status: {
     type: Number,
+    require: true,
   },
-  caseNumber: {
+  case_number: {
     type: Number,
   },
-  categoryId: [
+  category: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
       require: true,
     },
   ],
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  answerId: [
+  answer: [
     {
       type: Schema.Types.ObjectId,
       ref: "Answer",
       require: true,
     },
   ],
-  commentId: [
+  comment: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
@@ -57,7 +56,15 @@ const caseSchema = new Schema({
   ],
   rating: [
     {
-      type: String,
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        require: true,
+      },
+      rate: {
+        type: Number,
+        require: true,
+      },
     },
   ],
   readBy: [

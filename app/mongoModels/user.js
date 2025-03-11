@@ -19,19 +19,12 @@ const userSchema = new Schema({
   position: {
     type: String,
   },
-  admin: {
-    type: Boolean,
-    required: true,
-  },
-  systemOwner: {
-    type: Boolean,
-    require: true,
+  priviledge: {
+    type: Schema.Types.ObjectId,
+    ref: "Priviledge",
   },
   avatar: {
     type: String,
-  },
-  released: {
-    type: Boolean,
   },
   inbox: [
     {
@@ -39,25 +32,25 @@ const userSchema = new Schema({
       ref: "Notification",
     },
   ],
-  regCaseIds: [
+  cases: [
     {
       type: Schema.Types.ObjectId,
       ref: "Case",
     },
   ],
-  categoryId: [
+  categories: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
     },
   ],
-  commentId: [
+  comments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
     },
   ],
-  answerId: [
+  answers: [
     {
       type: Schema.Types.ObjectId,
       ref: "Answer",
