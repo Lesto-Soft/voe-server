@@ -1,4 +1,36 @@
+"""
+Represents the priority of the case. Low, Medium, High.
+"""
+enum CasePriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+"""
+Represents the status of the case. Open, In Progress, Closed.
+"""
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+"""
+Represents type of case. Problem or Suggestion.
+"""
+enum CaseType {
+  PROBLEM
+  SUGGESTION
+}
+
+"""
+Root Query type for all queries.
+"""
 type Query {
+  """
+  Returns a greeting message.
+  """
   greeting: String
   # User queries
   #getAllUsers: [User]
@@ -6,40 +38,75 @@ type Query {
   #getUserByUsername(username: String!): User
 }
 
+"""
+Represents a user in the system.
+"""
 type User {
   _id: ID!
+  "Username of the user. Cannot be empty."
   username: String!
+  "Password of the user. It is hashed before saving to the database. Cannot be empty."
   password: String!
+  "Name of the user. Cannot be empty."
   name: String!
+  "Email of the user."
   email: String
+  "Position of the user in the company."
   position: String
+  "Privilege of the user"
   privilege: Priviledge
+  "Name of the file that represents users avatar. This forms URL to the file in the server."
   avatar: String
+  "Notifications that are related to the user."
   inbox: [Notification]
+  "Cases created by the user."
   cases: [Case]
-  categories: [Category] # This is valid if the user is an expert
+  "Categories the user is expert in. This is valid if the user is an expert."
+  categories: [Category]
+  "Comments created by the user."
   comments: [Comment]
+  "Answers created by the user."
   answers: [Answer]
 }
 
+"""
+Represents a case in the system.
+"""
 type Case {
   _id: ID!
+  "Content of the case. Cannot be empty."
   content: String!
+  "Date when the case was created."
   date: String!
-  type: Int! # 1: Problem, 2: Suggestionc
+  "Type of the case. 1: Problem, 2: Suggestion"
+  type: CaseType!
+  "List of attachments names that form URLs to the files in the server."
   attachments: [String]
-  priority: Int! # 1: Low, 2: Medium, 3: High
-  status: Int! # 1: Open, 2: In Progress, 3: Closed
-  case_Int: Int!
+  "Priority of the case. 1: Low, 2: Medium, 3: High"
+  priority: CasePriority!
+  "Status of the case. 1: Open, 2: In Progress, 3: Closed"
+  status: CaseStatus!
+  "Number of the case. It is generated automatically +1 to the last generated case."
+  case_number: Int!
+  "List of categories to which the case is related. Cannot be empty."
   category: [Category!]!
+  "User that created the case."
   user: User!
+  "Comments created to the case."
   comments: [Comment]
+  "Answers created to the case."
   answer: [Answer]
+  "Array of Ratings given to the case."
   rating: [Rating]
+  "Array of users that have read the case."
   readBy: [User]
+  "History of changes made to the case."
   history: [CaseHistory]
 }
 
+"""
+Represents a rating given by a user to a case.
+"""
 type Rating {
   _id: ID!
   user: User!
@@ -47,75 +114,135 @@ type Rating {
   rating: Int!
 }
 
-# Type of user priviledges for CRUD operations on the system
+"""
+Represents type of user privileges for CRUD operations on the system.
+"""
 type Priviledge {
   _id: ID!
-  name: String! # This needs to be the unique identifier to be assigned to the user and read from FE to allow/not allow interactions
+  "Name of the privilege.This needs to be the unique identifier to be assigned to the user and read from FE to allow/not allow interactions"
+  name: String! #
+  "Description of the privilege."
   description: String
+  "Users with this privilege."
   users: [User]
 }
 
+"""
+Represents a notification in the system.
+"""
 type Notification {
   _id: ID!
-  description: String
+  "Content of the notification. Cannot be empty."
+  content: String
+  "Date when the notification was created."
   date: String!
+  "If notification is read by the user."
   read: Boolean!
+  "If notification is Case related, Case to which the notification is related."
   case: Case
+  "User that created the notification."
   user: User!
+  "If notification is Answer related, Answer to which the notification is related."
   answer: Answer
 }
 
+"""
+Represents a category in the system.
+"""
 type Category {
   _id: ID!
+  "Name of the category. Cannot be empty."
   name: String!
+  "Problem information for the category."
   problem: String
+  "Suggestion information for the category."
   suggestion: String
+  "Experts related to the category."
   experts: [User]
+  "Cases related to the category."
   cases: [Case]
 }
 
+"""
+Represents a comment made by a user.
+"""
 type Comment {
   _id: ID!
+  "Date when the comment was created."
   date: String!
+  "Content of the comment. Cannot be empty."
   content: String
+  "If comment is Case related, Case to which the comment is related."
   case: Case
+  "User that created the comment."
   user: User!
+  "If comment is Answer related, Answer to which the comment is related."
   answer: Answer
+  "List of attachments names that form URLs to the files in the server."
   attachments: [String]
 }
 
+"""
+Represents an answer provided by a user.
+"""
 type Answer {
   _id: ID!
+  "Date when the answer was created."
   date: String!
+  "Content of the answer. Cannot be empty."
   content: String
+  "List of attachments names that form URLs to the files in the server."
   attachments: [String]
+  "Case to which the answer is related."
   case: Case!
+  "User that created the answer."
   user: User!
+  "Comments created to the answer."
   comments: [Comment]
+  "The user that approved the answer. Only one user can approve the answer."
   approved: User
+  "Array of History changes made to the answer."
   history: [AnswerHistory]
 }
 
+"""
+Represents the history of changes made to an answer.
+"""
 type AnswerHistory {
   _id: ID!
+  "User that made the change."
   user: User!
+  "Old content of the answer."
   old_content: String
+  "New content of the answer."
   new_content: String
-  initial_date: String!
+  "Date when the change was made."
   date_change: String!
 }
 
+"""
+Represents the history of changes made to a case.
+"""
 type CaseHistory {
   _id: ID!
+  "User that made the change."
   user: User!
-  initial_date: String!
+  "Date when the change was made."
   date_change: String!
+  "Old content of the case."
   old_content: String
+  "New content of the case."
   new_content: String
+  "Old priority of the case."
   old_priority: Int
+  "New priority of the case."
   new_priority: Int
+  "Old type of the case."
   old_type: Int
+  "New type of the case."
   new_type: Int
+  "Old categories of the case."
   old_categories: [Category!]!
+  "New categories of the case."
   new_categories: [Category!]!
 }

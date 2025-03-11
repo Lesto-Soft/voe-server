@@ -10,7 +10,8 @@ const caseSchema = new Schema({
     require: true,
   },
   type: {
-    type: Number,
+    type: String,
+    enum: ["PROBLEM", "SUGGESTION"],
     require: true,
   },
   attachments: [
@@ -19,11 +20,13 @@ const caseSchema = new Schema({
     },
   ],
   priority: {
-    type: Number,
+    type: String,
+    enum: ["LOW", "MEDIUM", "HIGH"],
     require: true,
   },
   status: {
-    type: Number,
+    type: String,
+    enum: ["OPEN", "IN_PROGRESS", "CLOSED"],
     require: true,
   },
   case_number: {

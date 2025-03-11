@@ -12,10 +12,6 @@ const answerHistory = new Schema({
   new_content: {
     type: String,
   },
-  initial_date: {
-    type: String,
-    require: true,
-  },
   date_change: {
     type: String,
     require: true,
