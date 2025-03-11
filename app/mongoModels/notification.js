@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const notificationSchema = new Schema({
-  description: {
+  content: {
     type: String,
   },
   date: {

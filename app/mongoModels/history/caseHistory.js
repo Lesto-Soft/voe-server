@@ -6,10 +6,6 @@ const caseHistory = new Schema({
     ref: "User",
     require: true,
   },
-  initial_date: {
-    type: String,
-    required: true,
-  },
   date_change: {
     type: String,
     required: true,
