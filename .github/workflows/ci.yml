@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "lts" # Specify the Node.js version you want to use (lts = latest stable version)
+          node-version: "lts/*" # Specify the Node.js version you want to use (lts = latest stable version)
 
       # Install dependencies
       - name: Install dependencies
