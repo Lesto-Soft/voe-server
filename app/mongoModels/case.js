@@ -56,15 +56,8 @@ const caseSchema = new Schema({
   ],
   rating: [
     {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        require: true,
-      },
-      rate: {
-        type: Number,
-        require: true,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "Rating",
     },
   ],
   readBy: [

@@ -1,8 +1,9 @@
 type Query {
+  greeting: String
   # User queries
-  getAllUsers: [User]
-  getUserById(_id: ID!): User
-  getUserByUsername(username: String!): User
+  #getAllUsers: [User]
+  #getUserById(_id: ID!): User
+  #getUserByUsername(username: String!): User
 }
 
 type User {
@@ -25,23 +26,25 @@ type Case {
   _id: ID!
   content: String!
   date: String!
-  type: Number! # 1: Problem, 2: Suggestionc
+  type: Int! # 1: Problem, 2: Suggestionc
   attachments: [String]
-  priority: Number! # 1: Low, 2: Medium, 3: High
-  status: Number! # 1: Open, 2: In Progress, 3: Closed
-  case_number: Number!
+  priority: Int! # 1: Low, 2: Medium, 3: High
+  status: Int! # 1: Open, 2: In Progress, 3: Closed
+  case_Int: Int!
   category: [Category!]!
   user: User!
   comments: [Comment]
   answer: [Answer]
-  rating: [
-    {
-      user: User!
-      rate: Number!
-    }
-  ],
-  readBy:[User],
+  rating: [Rating]
+  readBy: [User]
   history: [CaseHistory]
+}
+
+type Rating {
+  _id: ID!
+  user: User!
+  case: Case!
+  rating: Int!
 }
 
 # Type of user priviledges for CRUD operations on the system
@@ -109,10 +112,10 @@ type CaseHistory {
   date_change: String!
   old_content: String
   new_content: String
-  old_priority: Number
-  new_priority: Number
-  old_type: Number
-  new_type: Number
+  old_priority: Int
+  new_priority: Int
+  old_type: Int
+  new_type: Int
   old_categories: [Category!]!
   new_categories: [Category!]!
 }
