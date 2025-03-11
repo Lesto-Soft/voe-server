@@ -49,6 +49,7 @@ type Priviledge {
   _id: ID!
   name: String! # This needs to be the unique identifier to be assigned to the user and read from FE to allow/not allow interactions
   description: String
+  users: [User]
 }
 
 type Notification {
