@@ -8,6 +8,12 @@ const priviledgeSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  users: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 module.exports = model("Priviledge", priviledgeSchema);
