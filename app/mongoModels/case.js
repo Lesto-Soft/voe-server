@@ -1,16 +1,17 @@
 import { Schema, model } from "mongoose";
 
 const caseSchema = new Schema({
-  description: {
+  content: {
+    type: String,
+    require: true,
+  },
+  date: {
     type: String,
     require: true,
   },
   type: {
     type: Number,
     require: true,
-  },
-  date: {
-    type: String,
   },
   attachments: [
     {
@@ -27,6 +28,7 @@ const caseSchema = new Schema({
   },
   case_number: {
     type: Number,
+    require: true,
   },
   category: [
     {
@@ -40,18 +42,16 @@ const caseSchema = new Schema({
     ref: "User",
     require: true,
   },
-  answer: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Answer",
-      require: true,
-    },
-  ],
   comment: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
-      require: true,
+    },
+  ],
+  answer: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Answer",
     },
   ],
   rating: [

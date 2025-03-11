@@ -8,9 +8,11 @@ const caseHistory = new Schema({
   },
   initial_date: {
     type: String,
+    required: true,
   },
   date_change: {
     type: String,
+    required: true,
   },
   old_content: {
     type: String,

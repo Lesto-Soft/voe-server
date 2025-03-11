@@ -1,15 +1,16 @@
 import { Schema, model } from "mongoose";
 
 const notificationSchema = new Schema({
+  description: {
+    type: String,
+  },
   date: {
     type: String,
     require: true,
   },
-  description: {
-    type: String,
-  },
   read: {
     type: Boolean,
+    require: true,
   },
   case: {
     type: Schema.Types.ObjectId,

@@ -23,7 +23,7 @@ type User {
 
 type Case {
   _id: ID!
-  description: String!
+  content: String!
   date: String!
   type: Number! # 1: Problem, 2: Suggestionc
   attachments: [String]
@@ -33,7 +33,7 @@ type Case {
   category: [Category!]!
   user: User!
   comments: [Comment]
-  answer: Answer
+  answer: [Answer]
   rating: [
     {
       user: User!
@@ -57,7 +57,7 @@ type Notification {
   date: String!
   read: Boolean!
   case: Case
-  user: User
+  user: User!
   answer: Answer
 }
 
@@ -103,7 +103,7 @@ type AnswerHistory {
 
 type CaseHistory {
   _id: ID!
- user: User!
+  user: User!
   initial_date: String!
   date_change: String!
   old_content: String
@@ -112,6 +112,6 @@ type CaseHistory {
   new_priority: Number
   old_type: Number
   new_type: Number
-  old_categories: [Category]
-  new_categories: [Category]
+  old_categories: [Category!]!
+  new_categories: [Category!]!
 }
