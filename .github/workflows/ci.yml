@@ -3,11 +3,12 @@ name: CI/CD Pipeline
 on:
   pull_request:
     branches:
-      - main # Adjust this to the branch where you want the PR to be merged
+      - main # PRs to the main branch will trigger the workflow
+      - development # PRs to the development branch will also trigger the workflow
     paths:
       - "**/*.js" # Only run for changes to JS files or modify this if needed
       - "**/*.json" # Include package.json and package-lock.json changes
-      - "app/**/*.js"
+      - "app/**/*.js" # Include changes to JavaScript files in the app folder
 
 jobs:
   test:
