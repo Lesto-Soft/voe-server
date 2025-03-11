@@ -3,20 +3,21 @@ import { Schema, model } from "mongoose";
 const commentSchema = new Schema({
   date: {
     type: String,
+    require: true,
   },
-  description: {
+  content: {
     type: String,
   },
-  caseId: {
+  case: {
     type: Schema.Types.ObjectId,
     ref: "Case",
   },
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  answerId: {
+  answer: {
     type: Schema.Types.ObjectId,
     ref: "Answer",
   },

@@ -1,25 +1,27 @@
 import { Schema, model } from "mongoose";
 
 const notificationSchema = new Schema({
-  date: {
-    type: String,
-  },
   description: {
     type: String,
   },
+  date: {
+    type: String,
+    require: true,
+  },
   read: {
     type: Boolean,
+    require: true,
   },
-  caseId: {
+  case: {
     type: Schema.Types.ObjectId,
     ref: "Case",
   },
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  answerId: {
+  answer: {
     type: Schema.Types.ObjectId,
     ref: "Answer",
   },

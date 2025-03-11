@@ -1,19 +1,17 @@
 import { Schema, model } from "mongoose";
 
 const caseSchema = new Schema({
-  description: {
+  content: {
+    type: String,
+    require: true,
+  },
+  date: {
     type: String,
     require: true,
   },
   type: {
     type: Number,
     require: true,
-  },
-  date: {
-    type: String,
-  },
-  signature: {
-    type: String,
   },
   attachments: [
     {
@@ -22,42 +20,44 @@ const caseSchema = new Schema({
   ],
   priority: {
     type: Number,
+    require: true,
   },
   status: {
     type: Number,
+    require: true,
   },
-  caseNumber: {
+  case_number: {
     type: Number,
+    require: true,
   },
-  categoryId: [
+  category: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
       require: true,
     },
   ],
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  answerId: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Answer",
-      require: true,
-    },
-  ],
-  commentId: [
+  comment: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
-      require: true,
+    },
+  ],
+  answer: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Answer",
     },
   ],
   rating: [
     {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Rating",
     },
   ],
   readBy: [

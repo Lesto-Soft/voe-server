@@ -1,3 +1,121 @@
 type Query {
   greeting: String
+  # User queries
+  #getAllUsers: [User]
+  #getUserById(_id: ID!): User
+  #getUserByUsername(username: String!): User
+}
+
+type User {
+  _id: ID!
+  username: String!
+  password: String!
+  name: String!
+  email: String
+  position: String
+  privilege: Priviledge
+  avatar: String
+  inbox: [Notification]
+  cases: [Case]
+  categories: [Category] # This is valid if the user is an expert
+  comments: [Comment]
+  answers: [Answer]
+}
+
+type Case {
+  _id: ID!
+  content: String!
+  date: String!
+  type: Int! # 1: Problem, 2: Suggestionc
+  attachments: [String]
+  priority: Int! # 1: Low, 2: Medium, 3: High
+  status: Int! # 1: Open, 2: In Progress, 3: Closed
+  case_Int: Int!
+  category: [Category!]!
+  user: User!
+  comments: [Comment]
+  answer: [Answer]
+  rating: [Rating]
+  readBy: [User]
+  history: [CaseHistory]
+}
+
+type Rating {
+  _id: ID!
+  user: User!
+  case: Case!
+  rating: Int!
+}
+
+# Type of user priviledges for CRUD operations on the system
+type Priviledge {
+  _id: ID!
+  name: String! # This needs to be the unique identifier to be assigned to the user and read from FE to allow/not allow interactions
+  description: String
+  users: [User]
+}
+
+type Notification {
+  _id: ID!
+  description: String
+  date: String!
+  read: Boolean!
+  case: Case
+  user: User!
+  answer: Answer
+}
+
+type Category {
+  _id: ID!
+  name: String!
+  problem: String
+  suggestion: String
+  experts: [User]
+  cases: [Case]
+}
+
+type Comment {
+  _id: ID!
+  date: String!
+  content: String
+  case: Case
+  user: User!
+  answer: Answer
+  attachments: [String]
+}
+
+type Answer {
+  _id: ID!
+  date: String!
+  content: String
+  attachments: [String]
+  case: Case!
+  user: User!
+  comments: [Comment]
+  approved: User
+  history: [AnswerHistory]
+}
+
+type AnswerHistory {
+  _id: ID!
+  user: User!
+  old_content: String
+  new_content: String
+  initial_date: String!
+  date_change: String!
+}
+
+type CaseHistory {
+  _id: ID!
+  user: User!
+  initial_date: String!
+  date_change: String!
+  old_content: String
+  new_content: String
+  old_priority: Int
+  new_priority: Int
+  old_type: Int
+  new_type: Int
+  old_categories: [Category!]!
+  new_categories: [Category!]!
 }

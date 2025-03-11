@@ -5,6 +5,10 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
+  password: {
+    type: String,
+    require: true,
+  },
   name: {
     type: String,
     require: true,
@@ -12,26 +16,15 @@ const userSchema = new Schema({
   email: {
     type: String,
   },
-  password: {
-    type: String,
-    require: true,
-  },
   position: {
     type: String,
   },
-  admin: {
-    type: Boolean,
-    required: true,
-  },
-  systemOwner: {
-    type: Boolean,
-    require: true,
+  priviledge: {
+    type: Schema.Types.ObjectId,
+    ref: "Priviledge",
   },
   avatar: {
     type: String,
-  },
-  released: {
-    type: Boolean,
   },
   inbox: [
     {
@@ -39,25 +32,25 @@ const userSchema = new Schema({
       ref: "Notification",
     },
   ],
-  regCaseIds: [
+  cases: [
     {
       type: Schema.Types.ObjectId,
       ref: "Case",
     },
   ],
-  categoryId: [
+  categories: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
     },
   ],
-  commentId: [
+  comments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
     },
   ],
-  answerId: [
+  answers: [
     {
       type: Schema.Types.ObjectId,
       ref: "Answer",

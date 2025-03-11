@@ -1,22 +1,24 @@
 import { Schema, model } from "mongoose";
 
 const answerHistory = new Schema({
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     require: true,
   },
-  oldDescription: {
+  old_content: {
     type: String,
   },
-  newDescription: {
+  new_content: {
     type: String,
   },
-  originalDate: {
+  initial_date: {
     type: String,
+    require: true,
   },
-  dateOfChange: {
+  date_change: {
     type: String,
+    require: true,
   },
 });
 
