@@ -1,0 +1,35 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main # Adjust this to the branch where you want the PR to be merged
+    paths:
+      - "**/*.js" # Only run for changes to JS files or modify this if needed
+      - "**/*.json" # Include package.json and package-lock.json changes
+      - "app/**/*.js"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # You can also use other operating systems like windows-latest or macos-latest
+
+    steps:
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts" # Specify the Node.js version you want to use (lts = latest stable version)
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Run tests
+      - name: Run tests
+        run: |
+          npm run test  # This assumes you have the "test" script in your package.json
