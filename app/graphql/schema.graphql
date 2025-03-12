@@ -4,8 +4,11 @@ Root Query type for all queries.
 type Query {
   # User queries
   getAllUsers(input: getAllUsersInput): [User]
-  #getUserById(_id: ID!): User
-  #getUserByUsername(username: String!): User
+  getUserById(_id: ID!): User
+  getUserByUsername(username: String!): User
+  # Category Queries
+  getAllCategories(input: getAllCategoriesInput): [Category]
+  getCategoryById(_id: ID!): Category
 }
 
 """
