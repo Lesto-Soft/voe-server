@@ -1,5 +1,7 @@
+import { getAllUsers } from "./query/user.js";
+
 export const resolvers = {
   Query: {
-    greeting: () => "Hello World!",
+    getAllUsers: (_, { input }) => getAllUsers(input),
   },
 };

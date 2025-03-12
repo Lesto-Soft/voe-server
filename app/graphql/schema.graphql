@@ -1,39 +1,9 @@
 """
-Represents the priority of the case. Low, Medium, High.
-"""
-enum CasePriority {
-  LOW
-  MEDIUM
-  HIGH
-}
-
-"""
-Represents the status of the case. Open, In Progress, Closed.
-"""
-enum CaseStatus {
-  OPEN
-  IN_PROGRESS
-  CLOSED
-}
-
-"""
-Represents type of case. Problem or Suggestion.
-"""
-enum CaseType {
-  PROBLEM
-  SUGGESTION
-}
-
-"""
 Root Query type for all queries.
 """
 type Query {
-  """
-  Returns a greeting message.
-  """
-  greeting: String
   # User queries
-  #getAllUsers: [User]
+  getAllUsers(input: getAllUsersInput): [User]
   #getUserById(_id: ID!): User
   #getUserByUsername(username: String!): User
 }
@@ -245,4 +215,36 @@ type CaseHistory {
   old_categories: [Category!]!
   "New categories of the case."
   new_categories: [Category!]!
+}
+
+input getAllUsersInput {
+  itemsPerPage: Int
+  currentPage: Int
+  query: String
+}
+
+"""
+Represents the priority of the case. Low, Medium, High.
+"""
+enum CasePriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+"""
+Represents the status of the case. Open, In Progress, Closed.
+"""
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+"""
+Represents type of case. Problem or Suggestion.
+"""
+enum CaseType {
+  PROBLEM
+  SUGGESTION
 }
