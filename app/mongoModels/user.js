@@ -19,9 +19,9 @@ const userSchema = new Schema({
   position: {
     type: String,
   },
-  priviledge: {
+  role: {
     type: Schema.Types.ObjectId,
-    ref: "Priviledge",
+    ref: "Role",
   },
   avatar: {
     type: String,

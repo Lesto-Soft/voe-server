@@ -7,6 +7,7 @@ import {
   getAllCases,
   getCaseById,
 } from "./query/case.js";
+import { getAllRoles } from "./query/role.js";
 
 export const resolvers = {
   Query: {
@@ -25,5 +26,8 @@ export const resolvers = {
     countCases: () => countCases(),
     countByMonth: (_, { year }) => countByMonth(year),
     countByDays: (_, { startDate, endDate }) => countByDays(startDate, endDate),
+
+    // ROLE QUERIES
+    getAllRoles: () => getAllRoles(),
   },
 };

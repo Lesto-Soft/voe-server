@@ -6,7 +6,7 @@ type Query {
   """
   Fetches all users with an optional pagination and search query.
   """
-  getAllUsers(input: getAllInput): [User]
+  getAllUsers(input: GetAllInput): [User]
   """
   Fetches a single user by their unique ID.
   """
@@ -20,7 +20,7 @@ type Query {
   """
   Fetches all categories with an optional pagination and search query.
   """
-  getAllCategories(input: getAllInput): [Category]
+  getAllCategories(input: GetAllInput): [Category]
   """
   Fetches a category by its unique ID.
   """
@@ -28,7 +28,7 @@ type Query {
 
   # CASE_QUERIES
   "Get all cases in the system."
-  getAllCases(input: getAllInput): [Case]
+  getAllCases(input: GetAllInput): [Case]
   "Get a case by its ID."
   getCaseById(_id: ID!): Case
   "Count cases in the system. Used for pagination."
@@ -37,7 +37,31 @@ type Query {
   countByMonth(year: Int!): MonthCount
   "Count problems and suggestions by weekdays for a specific date range."
   countByDays(startDate: String!, endDate: String!): [WeekdayCount]
+
+  # ROLE QUERIES
+  "Get all roles in the system."
+  getAllRoles: [Role]
 }
+
+"""
+Root Query type for all mutations.
+"""
+type Mutation {
+  # ROLE MUTATIONS
+  creatRole(input: RoleInput!): Role
+  updateRole(_id: ID!, input: RoleInput!): Role
+  deleteRole(_id: ID!): Role
+
+  # NOTIFICATION MUTATIONS
+  createNotification(input: NotificationInput!): Notification
+
+  # CASE HISTORY MUTATIONS
+  createCaseHistory(input: CaseHistoryInput!): CaseHistory
+
+  # ANSWER HISTORY MUTATIONS
+  createAnswerHistory(input: AnswerHistoryInput!): AnswerHistory
+}
+
 """
 Represents a user in the system.
 """
@@ -53,8 +77,8 @@ type User {
   email: String
   "Position of the user in the company."
   position: String
-  "Privilege of the user"
-  privilege: Priviledge
+  "Role of the user"
+  role: Role
   "Name of the file that represents users avatar. This forms URL to the file in the server."
   avatar: String
   "Notifications that are related to the user."
@@ -115,15 +139,15 @@ type Rating {
 }
 
 """
-Represents type of user privileges for CRUD operations on the system.
+Represents type of user roles for CRUD operations on the system.
 """
-type Priviledge {
+type Role {
   _id: ID!
-  "Name of the privilege.This needs to be the unique identifier to be assigned to the user and read from FE to allow/not allow interactions"
+  "Name of the rale. This needs to be the unique identifier to be assigned to the user and read from FE to allow/not allow interactions"
   name: String! #
-  "Description of the privilege."
+  "Description of the role."
   description: String
-  "Users with this privilege."
+  "Users with this role."
   users: [User]
 }
 
@@ -274,13 +298,81 @@ type WeekdayCount {
 """
 Represents the filtering parameters for pagination and search queries of the system objects.
 """
-input getAllInput {
+input GetAllInput {
   "The number of items to retrieve per page."
   itemsPerPage: Int
   "The current page number for pagination."
   currentPage: Int
   "An optional search query to filter items."
   query: String
+}
+
+"""
+Represents the parameters of a Role object.
+"""
+input RoleInput {
+  "The unique name of the role."
+  name: String!
+  "The description of the role."
+  description: String
+}
+
+"""
+Represents the parameters of a Notification object.
+"""
+input NotificationInput {
+  "The content of the notification."
+  content: String
+  "The date when the notification was created."
+  date: String!
+  "If notification is read by the user."
+  read: Boolean!
+  "If notification is Case related, the case ID to which the notification is related."
+  case: ID
+  "The ID of the User that created the notification."
+  user: ID!
+  "If notification is Answer related, the answer ID to which the notification is related."
+  answer: ID
+}
+
+"""
+Represents the parameters of a CaseHistory object.
+"""
+input CaseHistoryInput {
+  "The id of the user that made the change."
+  user: ID!
+  "Date when the change was made."
+  date_change: String!
+  "Old content of the case."
+  old_content: String
+  "New content of the case."
+  new_content: String
+  "Old priority of the case."
+  old_priority: Int
+  "New priority of the case."
+  new_priority: Int
+  "Old type of the case."
+  old_type: Int
+  "New type of the case."
+  new_type: Int
+  "Old category IDs of the case."
+  old_categories: [ID!]!
+  "New category IDs of the case."
+  new_categories: [ID!]!
+}
+
+"""
+Represents the parameters of a AnswerHistory object.
+"""
+input AnswerHistoryInput {
+  "The ID of the user that made the change."
+  user: ID!
+  "Old content of the answer."
+  old_content: String
+  "New content of the answer."
+  new_content: String
+  "Date when the change was made."
+  date_change: String!
 }
 
 """

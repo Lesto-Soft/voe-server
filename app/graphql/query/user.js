@@ -13,7 +13,7 @@ export const getAllUsers = async (input) => {
     const filter = query ? { name: { $regex: query, $options: "i" } } : {}; // Case-insensitive search
 
     const users = await UserModel.find(filter)
-      .populate("categories cases answers comments avatar priviledge")
+      .populate("categories cases answers comments avatar role")
       .sort({ username: 1 })
       .skip(currentPage * itemsPerPage)
       .limit(itemsPerPage)
@@ -30,7 +30,7 @@ export const getAllUsers = async (input) => {
 export const getUserById = async (id) => {
   try {
     const user = await UserModel.findById(id)
-      .populate("categories cases answers comments avatar priviledge")
+      .populate("categories cases answers comments avatar role")
       .exec();
 
     return user;
@@ -48,7 +48,7 @@ export const getUserByUsername = async (input) => {
     const user = await UserModel.findById({
       username: { $regex: `^${username}$`, $options: "i" },
     })
-      .populate("categories cases answers comments avatar priviledge") // Adjust based on schema relationships
+      .populate("categories cases answers comments avatar role") // Adjust based on schema relationships
       .exec();
 
     // If user is not found, throw an error

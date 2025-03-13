@@ -1,9 +1,10 @@
 import { Schema, model } from "mongoose";
 
-const priviledgeSchema = new mongoose.Schema({
+const roleSchema = new Schema({
   name: {
     type: String,
     require: true,
+    unique: true,
   },
   description: {
     type: String,
@@ -16,4 +17,4 @@ const priviledgeSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = model("Priviledge", priviledgeSchema);
+export const RoleModel = model("Role", roleSchema);
