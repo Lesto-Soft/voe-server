@@ -45,7 +45,7 @@ export const countCases = async () => {
   }
 };
 
-export const countByMonth = async ({ year }) => {
+export const countCasesByMonth = async ({ year }) => {
   try {
     const result = await CaseModel.aggregate([
       {
@@ -66,8 +66,6 @@ export const countByMonth = async ({ year }) => {
         },
       },
     ]);
-
-    console.log(result);
 
     const formattedResult = result.reduce((acc, { _id, count }) => {
       const month = _id.month;
@@ -92,7 +90,7 @@ export const countByMonth = async ({ year }) => {
   }
 };
 
-export const countByDays = async ({ startDate, endDate }) => {
+export const countCasesByDays = async ({ startDate, endDate }) => {
   try {
     const result = await CaseModel.aggregate([
       {

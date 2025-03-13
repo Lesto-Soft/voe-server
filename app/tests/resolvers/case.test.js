@@ -2,8 +2,8 @@ import {
   getAllCases,
   getCaseById,
   countCases,
-  countByMonth,
-  countByDays,
+  countCasesByMonth,
+  countCasesByDays,
 } from "../../graphql/query/case.js";
 import { CaseModel } from "../../mongoModels/case.js";
 import mockCases from "../mockup-data/case.json";
@@ -53,7 +53,7 @@ describe("Case Resolvers", () => {
     expect(CaseModel.countDocuments).toHaveBeenCalled();
   });
 
-  test("countByMonth should return the count of cases grouped by month", async () => {
+  test("countCasesByMonth should return the count of cases grouped by month", async () => {
     const year = 2023;
     const mockResult = [
       { _id: { month: 10, type: "PROBLEM" }, count: 2 },
@@ -65,7 +65,7 @@ describe("Case Resolvers", () => {
     ];
     CaseModel.aggregate.mockResolvedValue(mockResult);
 
-    const result = await countByMonth({ year });
+    const result = await countCasesByMonth({ year });
 
     expect(result).toEqual(expectedResult);
     expect(CaseModel.aggregate).toHaveBeenCalledWith([
@@ -89,7 +89,7 @@ describe("Case Resolvers", () => {
     ]);
   });
 
-  test("countByDays should return the count of cases grouped by day", async () => {
+  test("countCasesByDays should return the count of cases grouped by day", async () => {
     const startDate = "2023-10-01";
     const endDate = "2023-10-31";
     const mockResult = [
@@ -102,7 +102,7 @@ describe("Case Resolvers", () => {
     ];
     CaseModel.aggregate.mockResolvedValue(mockResult);
 
-    const result = await countByDays({ startDate, endDate });
+    const result = await countCasesByDays({ startDate, endDate });
 
     expect(result).toEqual(expectedResult);
     expect(CaseModel.aggregate).toHaveBeenCalledWith([

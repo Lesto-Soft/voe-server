@@ -1,8 +1,8 @@
 import { getAllUsers, getUserById, getUserByUsername } from "./query/user.js";
 import { getAllCategories, getCategoryById } from "./query/category.js";
 import {
-  countByMonth,
-  countByDays,
+  countCasesByMonth,
+  countCasesByDays,
   countCases,
   getAllCases,
   getCaseById,
@@ -23,7 +23,8 @@ export const resolvers = {
     getAllCases: (_, { input }) => getAllCases(input),
     getCaseById: (_, { id }) => getCaseById(id),
     countCases: () => countCases(),
-    countByMonth: (_, { year }) => countByMonth(year),
-    countByDays: (_, { startDate, endDate }) => countByDays(startDate, endDate),
+    countCasesByMonth: (_, { year }) => countCasesByMonth(year),
+    countCasesByDays: (_, { startDate, endDate }) =>
+      countCasesByDays(startDate, endDate),
   },
 };

@@ -34,9 +34,9 @@ type Query {
   "Count cases in the system. Used for pagination."
   countCases: Int
   "Count problems and suggestions by months for a specific year."
-  countByMonth(year: Int!): MonthCount
+  countCasesByMonth(year: Int!): MonthCount
   "Count problems and suggestions by weekdays for a specific date range."
-  countByDays(startDate: String!, endDate: String!): [WeekdayCount]
+  countCasesByDays(startDate: String!, endDate: String!): [WeekdayCount]
 }
 """
 Represents a user in the system.
