@@ -2,14 +2,33 @@
 Root Query type for all queries.
 """
 type Query {
-  # User queries
-  getAllUsers(input: getAllUsersInput): [User]
-  #getUserById(_id: ID!): User
-  #getUserByUsername(username: String!): User
+  # USER QUERIES
+  """
+  Fetches all users with an optional pagination and search query.
+  """
+  getAllUsers(input: getAllInput): [User]
+  """
+  Fetches a single user by their unique ID.
+  """
+  getUserById(_id: ID!): User
+  """
+  Fetches a single user by their username.
+  """
+  getUserByUsername(username: String!): User
+
+  # CATEGORY QUERIES
+  """
+  Fetches all categories with an optional pagination and search query.
+  """
+  getAllCategories(input: getAllInput): [Category]
+  """
+  Fetches a category by its unique ID.
+  """
+  getCategoryById(_id: ID!): Category
 
   # CASE_QUERIES
   "Get all cases in the system."
-  getAllCases(input: getAllCasesInput): [Case]
+  getAllCases(input: getAllInput): [Case]
   "Get a case by its ID."
   getCaseById(_id: ID!): Case
   "Count cases in the system. Used for pagination."
@@ -252,15 +271,15 @@ type WeekdayCount {
   suggestions: Int!
 }
 
-input getAllUsersInput {
+"""
+Represents the filtering parameters for pagination and search queries of the system objects.
+"""
+input getAllInput {
+  "The number of items to retrieve per page."
   itemsPerPage: Int
+  "The current page number for pagination."
   currentPage: Int
-  query: String
-}
-
-input getAllCasesInput {
-  itemsPerPage: Int
-  currentPage: Int
+  "An optional search query to filter items."
   query: String
 }
 

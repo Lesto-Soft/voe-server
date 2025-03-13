@@ -1,3 +1,5 @@
+import { getAllUsers, getUserById, getUserByUsername } from "./query/user.js";
+import { getAllCategories, getCategoryById } from "./query/category.js";
 import {
   countByMonth,
   countByDays,
@@ -5,13 +7,20 @@ import {
   getAllCases,
   getCaseById,
 } from "./query/case.js";
-import { getAllUsers } from "./query/user.js";
 
 export const resolvers = {
   Query: {
+    // USER QUERIES
     getAllUsers: (_, { input }) => getAllUsers(input),
-    getAllCases: (_, { input }) => getAllCases(input),
+    getUserById: (_, { id }) => getUserById(id),
+    getUserByUsername: (_, { username }) => getUserByUsername(username),
+
+    // CATEGORY QUERIES
+    getAllCategories: (_, { input }) => getAllCategories(input),
+    getCategoryById: (_, { id }) => getCategoryById(id),
+
     // CASE QUERIES
+    getAllCases: (_, { input }) => getAllCases(input),
     getCaseById: (_, { id }) => getCaseById(id),
     countCases: () => countCases(),
     countByMonth: (_, { year }) => countByMonth(year),
