@@ -33,7 +33,7 @@ const caseSchema = new Schema({
     type: Number,
     require: true,
   },
-  category: [
+  categories: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
@@ -45,13 +45,13 @@ const caseSchema = new Schema({
     ref: "User",
     require: true,
   },
-  comment: [
+  comments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
     },
   ],
-  answer: [
+  answers: [
     {
       type: Schema.Types.ObjectId,
       ref: "Answer",
@@ -72,4 +72,4 @@ const caseSchema = new Schema({
   history: [{ type: Schema.Types.ObjectId, ref: "CaseHistory" }],
 });
 
-module.exports = model("Case", caseSchema);
+export const CaseModel = model("Case", caseSchema);
