@@ -1,7 +1,14 @@
 import { CaseModel } from "../../mongoModels/case.js";
 
+const DEFAULT_ITEMS_PER_PAGE = 10;
+const DEFAULT_STARTING_PAGE = 0;
+
 export const getAllCases = async (input) => {
-  const { itemsPerPage, currentPage, query } = input;
+  const {
+    itemsPerPage = DEFAULT_ITEMS_PER_PAGE,
+    currentPage = DEFAULT_STARTING_PAGE,
+    query,
+  } = input || {};
   const filter = query ? { title: { $regex: query, $options: "i" } } : {};
 
   try {
@@ -9,7 +16,8 @@ export const getAllCases = async (input) => {
       .populate("user categories answers comments")
       .sort({ createdAt: -1 })
       .skip(currentPage * itemsPerPage)
-      .limit(itemsPerPage);
+      .limit(itemsPerPage)
+      .exec();
 
     return cases;
   } catch (error) {
@@ -19,10 +27,9 @@ export const getAllCases = async (input) => {
 
 export const getCaseById = async (id) => {
   try {
-    const found_case = await CaseModel.findById(id).populate(
-      "user categories answers comments"
-    );
-
+    const found_case = await CaseModel.findById(id)
+      .populate("user categories answers comments")
+      .exec();
     return found_case;
   } catch (error) {
     throw new Error("Failed to fetch case");
@@ -51,13 +58,35 @@ export const countByMonth = async ({ year }) => {
       },
       {
         $group: {
-          _id: { $month: "$createdAt" },
+          _id: {
+            month: { $month: "$createdAt" },
+            type: "$type",
+          },
           count: { $sum: 1 },
         },
       },
     ]);
 
-    return result;
+    console.log(result);
+
+    const formattedResult = result.reduce((acc, { _id, count }) => {
+      const month = _id.month;
+      const type = _id.type;
+
+      if (!acc[month]) {
+        acc[month] = { month, problems: 0, suggestions: 0 };
+      }
+
+      if (type === "PROBLEM") {
+        acc[month].problems += count;
+      } else if (type === "SUGGESTION") {
+        acc[month].suggestions += count;
+      }
+
+      return acc;
+    }, {});
+
+    return Object.values(formattedResult);
   } catch (error) {
     throw new Error("Failed to count cases by month");
   }
@@ -76,13 +105,33 @@ export const countByDays = async ({ startDate, endDate }) => {
       },
       {
         $group: {
-          _id: { $dayOfMonth: "$createdAt" },
+          _id: {
+            weekday: { $dayOfWeek: "$createdAt" },
+            type: "$type",
+          },
           count: { $sum: 1 },
         },
       },
     ]);
 
-    return result;
+    const formattedResult = result.reduce((acc, { _id, count }) => {
+      const weekday = _id.weekday;
+      const type = _id.type;
+
+      if (!acc[weekday]) {
+        acc[weekday] = { weekday, problems: 0, suggestions: 0 };
+      }
+
+      if (type === "PROBLEM") {
+        acc[weekday].problems += count;
+      } else if (type === "SUGGESTION") {
+        acc[weekday].suggestions += count;
+      }
+
+      return acc;
+    }, {});
+
+    return Object.values(formattedResult);
   } catch (error) {
     throw new Error("Failed to count cases by day");
   }

@@ -45,7 +45,7 @@ export const getUserByUsername = async (input) => {
     const { username } = input;
 
     // Find the user by their username (case-insensitive)
-    const user = await UserModel.findById({
+    const user = await UserModel.findOne({
       username: { $regex: `^${username}$`, $options: "i" },
     })
       .populate("categories cases answers comments avatar priviledge") // Adjust based on schema relationships

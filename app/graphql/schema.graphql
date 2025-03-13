@@ -252,11 +252,11 @@ Represents the number of problems and suggestions in a month.
 """
 type MonthCount {
   "Month of the count."
-  month: String!
+  month: String
   "Problems count in the month."
-  problems: Int!
+  problems: Int
   "Suggestions count in the month."
-  suggestions: Int!
+  suggestions: Int
 }
 
 """

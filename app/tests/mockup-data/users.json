@@ -1,0 +1,30 @@
+[
+  {
+    "username": "johndoe",
+    "password": "hashedpassword123",
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "position": "Developer",
+    "priviledge": "60d0fe4f5311236168a109ca",
+    "avatar": "https://example.com/avatar/johndoe.jpg",
+    "inbox": ["60d0fe4f5311236168a109cb"],
+    "cases": ["60d0fe4f5311236168a109cc"],
+    "categories": ["60d0fe4f5311236168a109cd"],
+    "comments": ["60d0fe4f5311236168a109ce"],
+    "answers": ["60d0fe4f5311236168a109cf"]
+  },
+  {
+    "username": "janedoe",
+    "password": "hashedpassword456",
+    "name": "Jane Doe",
+    "email": "janedoe@example.com",
+    "position": "Manager",
+    "priviledge": "60d0fe4f5311236168a109d0",
+    "avatar": "https://example.com/avatar/janedoe.jpg",
+    "inbox": ["60d0fe4f5311236168a109d1"],
+    "cases": ["60d0fe4f5311236168a109d2"],
+    "categories": ["60d0fe4f5311236168a109d3"],
+    "comments": ["60d0fe4f5311236168a109d4"],
+    "answers": ["60d0fe4f5311236168a109d5"]
+  }
+]
