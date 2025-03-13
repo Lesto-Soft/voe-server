@@ -2,12 +2,27 @@
 Root Query type for all queries.
 """
 type Query {
-  # User queries
+  # USER QUERIES
+  """
+  Fetches all users with an optional pagination and search query.
+  """
   getAllUsers(input: getAllUsersInput): [User]
+  """
+  Fetches a single user by their unique ID.
+  """
   getUserById(_id: ID!): User
+  """
+  Fetches a single user by their username.
+  """
   getUserByUsername(username: String!): User
-  # Category Queries
+  # CATEGORY QUERIES
+  """
+  Fetches all categories with an optional pagination and search query.
+  """
   getAllCategories(input: getAllCategoriesInput): [Category]
+  """
+  Fetches a category by its unique ID.
+  """
   getCategoryById(_id: ID!): Category
 }
 
@@ -220,9 +235,27 @@ type CaseHistory {
   new_categories: [Category!]!
 }
 
+"""
+Represents the filtering parameters for the getAllUsers query.
+"""
 input getAllUsersInput {
+  "The number of items (users) to retrieve per page."
   itemsPerPage: Int
+  "The current page number for pagination."
   currentPage: Int
+  "An optional search query to filter users by their name."
+  query: String
+}
+
+"""
+Represents the filtering parameters for the getAllCategories query.
+"""
+input getAllCategoriesInput {
+  "The number of items (categories) to retrieve per page."
+  itemsPerPage: Int
+  "The current page number for pagination."
+  currentPage: Int
+  "An optional search query to filter categories by their name."
   query: String
 }
 

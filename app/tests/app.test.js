@@ -1,4 +1,5 @@
 import request from "supertest";
+import mongoose from "mongoose";
 import { describe, it, expect, beforeAll, afterAll } from "@jest/globals";
 import { createApp } from "../app.js"; // Import the createApp function
 
@@ -8,8 +9,9 @@ beforeAll(async () => {
   app = await createApp(); // Start the app before tests
 });
 
-afterAll(() => {
-  // Clean up if necessary (e.g., closing connections, stopping server)
+afterAll(async () => {
+  // Close the database connection after tests are complete
+  await mongoose.connection.close();
 });
 
 describe("GraphQL API", () => {
