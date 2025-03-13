@@ -6,7 +6,7 @@ type Query {
   """
   Fetches all users with an optional pagination and search query.
   """
-  getAllUsers(input: getAllUsersInput): [User]
+  getAllUsers(input: getAllInput): [User]
   """
   Fetches a single user by their unique ID.
   """
@@ -15,17 +15,29 @@ type Query {
   Fetches a single user by their username.
   """
   getUserByUsername(username: String!): User
+
   # CATEGORY QUERIES
   """
   Fetches all categories with an optional pagination and search query.
   """
-  getAllCategories(input: getAllCategoriesInput): [Category]
+  getAllCategories(input: getAllInput): [Category]
   """
   Fetches a category by its unique ID.
   """
   getCategoryById(_id: ID!): Category
-}
 
+  # CASE_QUERIES
+  "Get all cases in the system."
+  getAllCases(input: getAllInput): [Case]
+  "Get a case by its ID."
+  getCaseById(_id: ID!): Case
+  "Count cases in the system. Used for pagination."
+  countCases: Int
+  "Count problems and suggestions by months for a specific year."
+  countByMonth(year: Int!): MonthCount
+  "Count problems and suggestions by weekdays for a specific date range."
+  countByDays(startDate: String!, endDate: String!): [WeekdayCount]
+}
 """
 Represents a user in the system.
 """
@@ -77,13 +89,13 @@ type Case {
   "Number of the case. It is generated automatically +1 to the last generated case."
   case_number: Int!
   "List of categories to which the case is related. Cannot be empty."
-  category: [Category!]!
+  categories: [Category!]!
   "User that created the case."
   user: User!
   "Comments created to the case."
   comments: [Comment]
   "Answers created to the case."
-  answer: [Answer]
+  answers: [Answer]
   "Array of Ratings given to the case."
   rating: [Rating]
   "Array of users that have read the case."
@@ -236,26 +248,38 @@ type CaseHistory {
 }
 
 """
-Represents the filtering parameters for the getAllUsers query.
+Represents the number of problems and suggestions in a month.
 """
-input getAllUsersInput {
-  "The number of items (users) to retrieve per page."
-  itemsPerPage: Int
-  "The current page number for pagination."
-  currentPage: Int
-  "An optional search query to filter users by their name."
-  query: String
+type MonthCount {
+  "Month of the count."
+  month: String!
+  "Problems count in the month."
+  problems: Int!
+  "Suggestions count in the month."
+  suggestions: Int!
 }
 
 """
-Represents the filtering parameters for the getAllCategories query.
+Represents the number of problems and suggestions in a weekday.
 """
-input getAllCategoriesInput {
-  "The number of items (categories) to retrieve per page."
+type WeekdayCount {
+  "Weekday of the count."
+  weekday: String!
+  "Problems count in the weekday."
+  problems: Int!
+  "Suggestions count in the weekday."
+  suggestions: Int!
+}
+
+"""
+Represents the filtering parameters for pagination and search queries of the system objects.
+"""
+input getAllInput {
+  "The number of items to retrieve per page."
   itemsPerPage: Int
   "The current page number for pagination."
   currentPage: Int
-  "An optional search query to filter categories by their name."
+  "An optional search query to filter items."
   query: String
 }
 
