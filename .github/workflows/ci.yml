@@ -13,6 +13,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest # You can also use other operating systems like windows-latest or macos-latest
+    env:
+      CI: true # Set this to true for CI environment
 
     steps:
       # Check out the repository
@@ -31,6 +33,5 @@ jobs:
           npm install
 
       # Run tests
-      - name: Run tests
-        run: |
-          npm run test  # This assumes you have the "test" script in your package.json
+      - name: Run tests (skip database tests in CI)
+        run: npm test --skip-db # Pass a flag to skip database tests

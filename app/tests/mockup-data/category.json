@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Software",
+    "problem": "Software issues",
+    "suggestion": "Software improvements",
+    "experts": ["60d21b4667d0d8992e610c86"],
+    "cases": ["60d21b4667d0d8992e610c85"]
+  },
+  {
+    "name": "Hardware",
+    "problem": "Hardware issues",
+    "suggestion": "Hardware improvements",
+    "experts": ["60d21b4667d0d8992e610c87"],
+    "cases": ["60d21b4667d0d8992e610c88"]
+  }
+]

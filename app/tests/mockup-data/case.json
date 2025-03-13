@@ -1,0 +1,34 @@
+[
+  {
+    "content": "This is a problem case.",
+    "date": "2023-10-01",
+    "type": "PROBLEM",
+    "attachments": ["attachment1.png", "attachment2.png"],
+    "priority": "HIGH",
+    "status": "OPEN",
+    "case_number": 1,
+    "categories": ["60d21b4667d0d8992e610c85"],
+    "user": "60d21b4667d0d8992e610c86",
+    "comments": ["60d21b4667d0d8992e610c87"],
+    "answers": ["60d21b4667d0d8992e610c88"],
+    "rating": ["60d21b4667d0d8992e610c89"],
+    "readBy": ["60d21b4667d0d8992e610c8a"],
+    "history": ["60d21b4667d0d8992e610c8b"]
+  },
+  {
+    "content": "This is a suggestion case.",
+    "date": "2023-10-02",
+    "type": "SUGGESTION",
+    "attachments": ["attachment3.png"],
+    "priority": "MEDIUM",
+    "status": "IN_PROGRESS",
+    "case_number": 2,
+    "categories": ["60d21b4667d0d8992e610c90"],
+    "user": "60d21b4667d0d8992e610c91",
+    "comments": ["60d21b4667d0d8992e610c92"],
+    "answers": ["60d21b4667d0d8992e610c93"],
+    "rating": ["60d21b4667d0d8992e610c94"],
+    "readBy": ["60d21b4667d0d8992e610c95"],
+    "history": ["60d21b4667d0d8992e610c96"]
+  }
+]
